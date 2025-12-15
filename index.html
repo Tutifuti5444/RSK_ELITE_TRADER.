@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSK ELITE TRADER | ভিআইপি ট্রেডিং কমিউনিটি</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ১. গ্লোবাল ভ্যারিয়েবল ও বেস স্টাইল (Dark/Gold Theme) --- */
+        :root {
+            --color-bg: #030303; /* আরও গাঢ় ব্যাকগ্রাউন্ড */
+            --color-primary: #ffd700; /* সোনালী/গোল্ড */
+            --color-secondary: #ff8c00; /* কমলা/অ্যাম্বার */
+            --color-text: #f0f0f0;
+            --color-heading: #ffffff;
+            --color-card-bg: rgba(20, 20, 20, 0.5); /* গ্লাসমরফিজম জন্য স্বচ্ছ */
+            --font-main: 'Tiro Bangla', sans-serif; /* বাংলার জন্য */
+            --font-english: 'Poppins', sans-serif;
+            --transition-speed: 0.8s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            height: 100%;
+            font-family: var(--font-main);
+            background: linear-gradient(135deg, #050505, #101010, #030303); 
+            color: var(--color-text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- ২. টাইপোগ্রাফি ও লেআউট --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-english);
+            color: var(--color-heading);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 4.2rem; /* ফন্ট সাইজ আরও বাড়ানো হয়েছে */
+            text-transform: uppercase;
+            letter-spacing: 7px; /* স্পেসিং আরও বাড়ানো হয়েছে */
+        }
+        
+        .bangla-h2 {
+            font-family: var(--font-main);
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--color-primary);
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* --- ৩. অ্যানিমেশন কীফ্রেম --- */
+        
+        /* হেডিং গ্লো অ্যানিমেশন (সবচেয়ে বেশি হাইলাইট) */
+        @keyframes header-glow {
+            0% { text-shadow: 0 0 10px var(--color-primary), 0 0 30px #fff; }
+            50% { text-shadow: 0 0 50px var(--color-primary), 0 0 80px var(--color-secondary), 0 0 100px #fff; } /* গ্লো এর তীব্রতা বৃদ্ধি */
+            100% { text-shadow: 0 0 10px var(--color-primary), 0 0 30px #fff; }
+        }
+
+        /* বাটন গ্লো ইফেক্ট */
+        @keyframes button-glow {
+            0% { box-shadow: 0 0 5px var(--color-primary); }
+            50% { box-shadow: 0 0 35px var(--color-primary), 0 0 70px var(--color-secondary); } /* তীব্রতা বৃদ্ধি */
+            100% { box-shadow: 0 0 5px var(--color-primary); }
+        }
+        
+        /* স্ক্রল ফেড-ইন অ্যানিমেশন */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px); /* নিচে থেকে আরও বেশি উঠবে */
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Floating Orbs Keyframes */
+        @keyframes float1 {
+          0%, 100% { transform: translate(0, 0); opacity: 0.6; }
+          50% { transform: translate(-30px, -30px); opacity: 0.9; }
+        }
+        @keyframes float2 {
+          0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+          50% { transform: translate(35px, 20px); opacity: 0.8; }
+        }
+        @keyframes float3 {
+          0%, 100% { transform: translate(0, 0); opacity: 0.7; }
+          50% { transform: translate(-10px, 40px); opacity: 1; }
+        }
+
+        /* --- ৪. হেডার সেকশন --- */
+        .header {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 0;
+            position: relative;
+            box-shadow: 0 0 150px rgba(255, 215, 0, 0.15) inset;
+        }
+
+        .header-title {
+            color: var(--color-primary);
+            animation: header-glow 2.5s infinite alternate;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(255, 215, 0, 0.2) 0%, transparent 60%);
+            pointer-events: none;
+            opacity: 0.8; 
+        }
+
+        /* --- ৫. CTA বাটন --- */
+        .cta-button {
+            display: inline-block;
+            margin-top: 60px; 
+            padding: 20px 45px;
+            background-color: var(--color-primary);
+            color: var(--color-bg);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-family: var(--font-english);
+            font-weight: 700;
+            border-radius: 50px;
+            font-size: 1.3rem; 
+            transition: 0.4s;
+            border: 3px solid var(--color-primary);
+            cursor: pointer;
+            animation: button-glow 2s infinite alternate;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--color-primary);
+            transform: scale(1.1);
+            box-shadow: 0 0 80px var(--color-secondary);
+        }
+        
+        /* --- ৬. হাইলাইট সেকশন --- */
+        .highlight-section {
+            background-color: #0d0d0d;
+            padding: 70px 0;
+            text-align: center;
+            border-top: 3px solid var(--color-secondary);
+            border-bottom: 3px solid var(--color-secondary);
+        }
+
+        .highlight-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        .highlight-item {
+            font-family: var(--font-main);
+            font-size: 1.5rem; 
+            color: var(--color-primary);
+            padding: 18px 35px;
+            border: 2px solid var(--color-primary);
+            border-radius: 10px;
+            background-color: #1a1a1a;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            transition: 0.4s;
+        }
+
+        .highlight-item:hover {
+            box-shadow: 0 0 50px var(--color-primary), 0 0 80px var(--color-secondary);
+            transform: translateY(-8px) scale(1.05);
+            background-color: #2e2e2e;
+        }
+        
+        /* --- ৭. ফিচার কার্ড সেকশন (গ্লাসমরফিজম স্টাইল) --- */
+        .section {
+            padding: 100px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background-color: var(--color-card-bg);
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            transition: all 0.5s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 20px 80px rgba(255, 215, 0, 0.7);
+            background-color: rgba(30, 30, 30, 0.8);
+        }
+        
+        .icon {
+            font-size: 4rem; 
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            display: block;
+            animation: text-glow 2s infinite alternate;
+        }
+
+        .trust-section .features-grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        /* --- ৮. Floating Orbs --- */
+        .floating-orbs {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.8;
+        }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            filter: blur(15px);
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+        .orb1 {
+            width: 150px; height: 150px;
+            background: var(--color-primary);
+            top: 5%; left: 10%;
+            animation-name: float1;
+            animation-duration: 12s;
+        }
+        .orb2 {
+            width: 100px; height: 100px;
+            background: var(--color-secondary);
+            top: 75%; right: 10%;
+            animation-name: float2;
+            animation-duration: 15s;
+        }
+        .orb3 {
+            width: 80px; height: 80px;
+            background: var(--color-primary);
+            top: 35%; left: 75%;
+            animation-name: float3;
+            animation-duration: 10s;
+        }
+        /* --- ৯. ফুটার --- */
+        .footer {
+            padding: 30px 0;
+            background-color: #000;
+            text-align: center;
+            font-size: 1rem;
+            color: #555;
+            border-top: 1px solid #111;
+        }
+
+        /* --- ১০. মোবাইল রেসপনসিভনেস --- */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+                letter-spacing: 3px;
+            }
+
+            .header-subtitle, .bangla-h2 {
+                font-size: 1.6rem;
+            }
+            
+            .highlight-item {
+                font-size: 1.2rem;
+                padding: 15px 25px;
+            }
+
+            .cta-button {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+                margin-top: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="floating-orbs">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+    </div>
+
+    <header class="header">
+        <div class="container fade-in">
+            <h1 class="header-title">RSK ELITE TRADER</h1>
+            <p class="header-subtitle" style="font-size: 1.8rem; font-weight: 500;">
+                <span style="color: var(--color-primary);">প্রমাণিত সাফল্যের</span> সাথে সেরা ট্রেডিং ফলাফলের একমাত্র ভিআইপি কমিউনিটি
+            </p>
+        </div>
+    </header>
+
+    <section class="highlight-section">
+        <div class="container fade-in" style="transition-delay: 0.4s;">
+            <div class="highlight-grid">
+                <div class="highlight-item">🎯 DK WIN</div>
+                <div class="highlight-item">⏰ Wingo 30s Siur Short</div>
+                <div class="highlight-item">💎 99% Siur Short</div>
+                <div class="highlight-item">📈 ৩ স্টেপ প্রফিট</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section trust-section">
+        <div class="container">
+            <h2 class="bangla-h2 fade-in">কেন আপনি RSK ELITE TRADER-কে বিশ্বাস করবেন?</h2>
+            <div class="features-grid">
+                
+                <div class="feature-card fade-in" style="transition-delay: 0.1s;">
+                    <span class="icon">🏆</span>
+                    <h3>৫+ বছরের অভিজ্ঞতা</h3>
+                    <p>বাজার সম্পর্কে গভীর জ্ঞান এবং ৫ বছরেরও বেশি সময়ের প্রমাণিত সাফল্যের রেকর্ড আমাদের রয়েছে।</p>
+                </div>
+                
+                <div class="feature-card fade-in" style="transition-delay: 0.2s;">
+                    <span class="icon">🛡️</span>
+                    <h3>শূন্যে কথা নয়, ফলাফলই প্রমাণ</h3>
+                    <p>আমরা কোনো মিথ্যা প্রতিশ্রুতি দিই না। আমাদের প্রতিদিনের লাইভ ফলাফলগুলিই আমাদের নির্ভরযোগ্যতার প্রমাণ।</p>
+                </div>
+                
+                <div class="feature-card fade-in" style="transition-delay: 0.3s;">
+                    <span class="icon">🤝</span>
+                    <h3>১০০% স্বচ্ছতা ও নিরাপত্তা</h3>
+                    <p>প্রতিটি ট্রেডিং সিগন্যাল প্রমাণ সাপেক্ষে দেওয়া হয়। আপনার ডেটা এবং গোপনীয়তা আমাদের সর্বোচ্চ অগ্রাধিকার।</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="bangla-h2 fade-in">ভিআইপি-তে আপনার বিশেষ সুবিধা</h2>
+            <div class="features-grid">
+                
+                <div class="feature-card fade-in" style="transition-delay: 0.1s;">
+                    <span class="icon">✅</span>
+                    <h3>নিখুঁত সিগন্যাল</h3>
+                    <p>আমাদের বিশেষজ্ঞ দল থেকে সর্বোচ্চ নির্ভুলতার সাথে ট্রেডিং সিগন্যাল পান।</p>
+                </div>
+                
+                <div class="feature-card fade-in" style="transition-delay: 0.2s;">
+                    <span class="icon">🚀</span>
+                    <h3>দ্রুত ফলাফল</h3>
+                    <p>কম সময়ে বেশি প্রফিট করুন এবং দ্রুত ফল উপভোগ করুন।</p>
+                </div>
+                
+                <div class="feature-card fade-in" style="transition-delay: 0.3s;">
+                    <span class="icon">👑</span>
+                    <h3>ভিআইপি অ্যাক্সেস</h3>
+                    <p>প্রিমিয়াম ভবিষ্যৎবাণী এবং কৌশলগুলি শুধুমাত্র ভিআইপি সদস্যদের জন্য সংরক্ষিত।</p>
+                </div>
+                
+                <div class="feature-card fade-in" style="transition-delay: 0.4s;">
+                    <span class="icon">📈</span>
+                    <h3>উচ্চ জয়ের হার</h3>
+                    <p>বাজারের সেরা জয়ের হার নিশ্চিত করে আমাদের প্রমাণিত কৌশল।</p>
+                </div>
+                
+            </div>
+            
+            <div style="text-align: center; margin-top: 90px;" class="fade-in" style="transition-delay: 0.5s;">
+                <h2 class="bangla-h2" style="font-size: 1.8rem; margin-bottom: 30px;">ভিআইপি গ্রুপে আজই যোগ দিন</h2>
+                <a href="https://t.me/rsk_elite_trader" target="_blank" class="cta-button">JOIN VIP TELEGRAM</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="container">
+            © ২০২৫ RSK ELITE TRADER | সর্বস্বত্ব সংরক্ষিত
+        </div>
+    </footer>
+    
+    <script>
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15 
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            elements.forEach(el => {
+                // হেডার টাইটেল সাথে সাথেই দেখা যাবে
+                if (el.closest('.header') && el.parentElement.tagName === 'DIV') {
+                    el.classList.add('visible');
+                } else {
+                    // বাকি সব স্ক্রল করলে ফেড-ইন হবে
+                    observer.observe(el);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
